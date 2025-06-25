@@ -1,0 +1,10 @@
+.git/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+.vscode/
+.DS_Store
+downloads/  
