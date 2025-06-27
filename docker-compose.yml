@@ -2,24 +2,45 @@ name: spotgrab
 services:
   app:
     build: .
-    container_name: spotgrab:latest
-    environment:
-      - CLIENT_ID=""
-      - CLIENT_SECRET=""
-      - DOMAIN=http://{hostIP}:8000
-      - FILE_CLEANUP_INTERVAL=1800
-      - FILE_CLEANUP_MAX_AGE=3600
-    labels:
-      icon: https://raw.githubusercontent.com/thepangel/spotgrab/main/src/logo.svg
+    image: thepangel/spotgrab:latest
     ports:
       - target: 8000
         published: "8000"
         protocol: tcp
-    restart: unless-stopped
     volumes:
       - type: bind
-        source: ""
-        target: /music
+        source: /DATA/Media/Music
+        target: /music  
       - type: bind
-        source: ""
+        source: /DATA/AppData/spotgrab
         target: /public_downloads
+    environment:
+      - CLIENT_ID=your_spotify_client_id
+      - CLIENT_SECRET=your_spotify_client_secret
+      - DOMAIN=http://localhost:8000
+      - FILE_CLEANUP_INTERVAL=1800
+      - FILE_CLEANUP_MAX_AGE=3600
+    restart: unless-stopped
+    labels:
+      icon: https://raw.githubusercontent.com/yourusername/spotgrab/main/src/logo.svg
+     
+
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  author: thepangel
+  category: Media
+  description:
+    en_us: Web-based Spotify music downloader with real-time progress and direct download capability
+  developer: thepangel
+  icon: https://raw.githubusercontent.com/yourusername/spotgrab/main/src/logo.svg
+  is_uncontrolled: false
+  main: app
+  port_map: "8000"
+  store_app_id: spotgrab
+  tagline:
+    en_us: Download Spotify playlists and tracks with real-time progress
+  thumbnail: https://raw.githubusercontent.com/yourusername/spotgrab/main/src/logo.svg
+  title:
+    en_us: spotGrab
