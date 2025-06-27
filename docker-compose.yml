@@ -17,12 +17,11 @@ services:
     environment:
       - CLIENT_ID=your_spotify_client_id
       - CLIENT_SECRET=your_spotify_client_secret
-      - DOMAIN=http://localhost:8000
       - FILE_CLEANUP_INTERVAL=1800
       - FILE_CLEANUP_MAX_AGE=3600
     restart: unless-stopped
     labels:
-      icon: https://raw.githubusercontent.com/yourusername/spotgrab/main/src/logo.svg
+      icon: https://cdn.jsdelivr.net/gh/thepangel/spotgrab/src/logo.svg
      
 
 x-casaos:
@@ -34,13 +33,13 @@ x-casaos:
   description:
     en_us: Web-based Spotify music downloader with real-time progress and direct download capability
   developer: thepangel
-  icon: https://raw.githubusercontent.com/yourusername/spotgrab/main/src/logo.svg
+  icon: https://cdn.jsdelivr.net/gh/thepangel/spotgrab/src/logo.svg
   is_uncontrolled: false
   main: app
   port_map: "8000"
   store_app_id: spotgrab
   tagline:
     en_us: Download Spotify playlists and tracks with real-time progress
-  thumbnail: https://raw.githubusercontent.com/yourusername/spotgrab/main/src/logo.svg
+  thumbnail: https://cdn.jsdelivr.net/gh/thepangel/spotgrab/src/logo.svg
   title:
     en_us: spotGrab

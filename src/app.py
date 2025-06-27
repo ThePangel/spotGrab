@@ -10,7 +10,6 @@ app = FastAPI(title="spotGrab")
 load_dotenv()
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
-domain = os.getenv("DOMAIN")
 cleanupInterval = int(os.getenv("FILE_CLEANUP_INTERVAL"))
 cleanupMaxAge = int(os.getenv("FILE_CLEANUP_MAX_AGE"))
 
@@ -59,28 +58,28 @@ async def song_dl(id: str, websocket: WebSocket):
     try:
         await asyncio.gather(stdout_task, process_task)
     except Exception:
-        
         stdout_task.cancel()
         process_task.cancel()
 
-      
         if process and process.returncode is None:
             process.terminate()
             try:
                 await asyncio.wait_for(process.wait(), timeout=10)
             except asyncio.TimeoutError:
-                process.kill() 
+                process.kill()
         if os.path.exists(musicPath):
             shutil.rmtree(musicPath)
         if os.path.exists(downloadPath):
             shutil.rmtree(downloadPath)
         return
+
     shutil.make_archive(os.path.join(downloadPath, "songs"), "zip", musicPath)
     shutil.rmtree(musicPath)
+
     await websocket.send_json(
         {
             "message": "Download successful via spotGrab!",
-            "url": domain + f"{os.path.join(downloadPath, 'songs.zip')}",
+            "url":  f"/public_downloads/{id}/songs.zip"
         }
     )
 
