@@ -1,0 +1,25 @@
+name: spotgrab
+services:
+  app:
+    build: .
+    container_name: spotgrab:latest
+    environment:
+      - CLIENT_ID=""
+      - CLIENT_SECRET=""
+      - DOMAIN=http://{hostIP}:8000
+      - FILE_CLEANUP_INTERVAL=1800
+      - FILE_CLEANUP_MAX_AGE=3600
+    labels:
+      icon: https://raw.githubusercontent.com/thepangel/spotgrab/main/src/logo.svg
+    ports:
+      - target: 8000
+        published: "8000"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ""
+        target: /music
+      - type: bind
+        source: ""
+        target: /public_downloads

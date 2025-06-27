@@ -1,0 +1,11 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" width="496" height="512">
+	<title>Spotify_icon</title>
+	<defs>
+		<image width="384" height="384" id="img1" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHRpdGxlPjEzLkFycm93IHVwPC90aXRsZT48ZyBpZD0iXzEzLkFycm93X3VwIiBkYXRhLW5hbWU9IjEzLkFycm93IHVwIj48cGF0aCBkPSJNMTIsMjRBMTIsMTIsMCwxLDEsMjQsMTIsMTIuMDEzLDEyLjAxMywwLDAsMSwxMiwyNFpNMTIsMkExMCwxMCwwLDEsMCwyMiwxMiwxMC4wMTEsMTAuMDExLDAsMCwwLDEyLDJaIi8+PHBvbHlnb24gcG9pbnRzPSIxOCAxMiAxNiAxMiAxNiA5IDEyIDkgMTIgNyAxOCA3IDE4IDEyIi8+PHBvbHlnb24gcG9pbnRzPSIzLjcwNyAxNy43MDcgMi4yOTMgMTYuMjkzIDYuNTg2IDEyIDExLjU4NiAxMiAxNi4yOTMgNy4yOTMgMTcuNzA3IDguNzA3IDEyLjQxNCAxNCA3LjQxNCAxNCAzLjcwNyAxNy43MDciLz48L2c+PC9zdmc+"/>
+	</defs>
+	<style>
+		.s0 { fill: #1ed760 } 
+	</style>
+	<path fill-rule="evenodd" class="s0" d="m248 8c137.1 0 248 110.9 248 248 0 137.1-110.9 248-248 248-137.1 0-248-110.9-248-248 0-137.1 110.9-248 248-248z"/>
+	<use id="reshot-icon-arrow-up-YGB6VT9MFK" href="#img1" transform="matrix(-0.795,.795,-0.795,-0.795,553.94,256.47)"/>
+</svg>

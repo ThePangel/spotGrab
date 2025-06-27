@@ -1,17 +1,26 @@
-FROM python:3.13.3-alpine3.22
+# Use a slim and recent Python image
+FROM python:3.11-alpine
 
-WORKDIR /src
+# Set build arguments for multi-arch
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
+RUN echo "Building on $BUILDPLATFORM, targeting $TARGETPLATFORM"
 
-RUN apt-get update && apt-get install -y ffmpeg && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+
+RUN apk add --no-cache ffmpeg
 
 COPY requirements.txt .
 
-RUN pip install --no-cache-dir -r requirements.txt  
+RUN pip install --no-cache-dir -r requirements.txt && \
+    pip install --no-cache-dir --upgrade spotdl
 
-COPY . .
 
-EXPOSE 5000
+COPY src/ src/
 
-ENV FLASK_APP=app.py
+EXPOSE 8000
 
-CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
+VOLUME /music
+VOLUME /public_downloads
+
+CMD ["uvicorn", "src.app:app", "--host", "0.0.0.0", "--port", "8000"]
