@@ -23,7 +23,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
         return test;
       })
       .then((data) => {
-        var ws = new WebSocket("ws://localhost:8000/ws/downloads/" + data.id);
+        
+        const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const wsUrl = `${wsProtocol}//${window.location.host}/ws/downloads/${data.id}`;
+        var ws = new WebSocket(wsUrl);
+        
         ws.onopen = () => {
           ws.send(formData.get("url"));
         };
@@ -31,13 +35,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
           try {
             value = JSON.parse(event.data);
             status.innerHTML += `<br>${value.message}`;
-            // Auto-scroll to bottom
+
             status.scrollTop = status.scrollHeight;
             window.location.href = value.url;
             form.reset();
           } catch (e) {
             status.innerHTML += `<br>${event.data}`;
-            // Auto-scroll to bottom
+
             status.scrollTop = status.scrollHeight;
           }
         };
