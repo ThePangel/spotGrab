@@ -1,10 +1,8 @@
-import shutil, uuid, os
-from fastapi import FastAPI, Form, WebSocketDisconnect, WebSocket
+import shutil, uuid, os, asyncio, re
+from fastapi import FastAPI, WebSocket
 from dotenv import load_dotenv
 from fastapi.staticfiles import StaticFiles
 from typing import Annotated
-import asyncio
-
 
 app = FastAPI(title="spotGrab")
 load_dotenv()
@@ -12,6 +10,20 @@ client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
 cleanupInterval = int(os.getenv("FILE_CLEANUP_INTERVAL"))
 cleanupMaxAge = int(os.getenv("FILE_CLEANUP_MAX_AGE"))
+
+
+def is_valid_spotify_url(url: str) -> bool:
+
+    spotify_patterns = [
+        r"^https://open\.spotify\.com/(track|album|playlist|artist)/.+",
+        r"^spotify:(track|album|playlist|artist):.+",
+        r"^https://spotify\.link/.+",
+    ]
+
+    for pattern in spotify_patterns:
+        if re.match(pattern, url.strip()):
+            return True
+    return False
 
 
 async def download_cleanup():
@@ -33,6 +45,11 @@ async def song_dl(id: str, websocket: WebSocket):
     downloadPath = os.path.join(os.path.dirname(os.getcwd()), "public_downloads", id)
 
     url = await websocket.receive_text()
+    if not is_valid_spotify_url(url):
+            await websocket.send_text("Invalid URL!! Try again ^_____^")
+            await websocket.close(code=1003, reason="Invalid Spotify URL")
+            return
+    
     process = await asyncio.create_subprocess_exec(
         "spotdl",
         url,
@@ -78,8 +95,8 @@ async def song_dl(id: str, websocket: WebSocket):
 
     await websocket.send_json(
         {
-            "message": "Download successful via spotGrab!",
-            "url":  f"/public_downloads/{id}/songs.zip"
+            "message": "Download successful via spotGrab! Download window should now open!",
+            "url": f"/public_downloads/{id}/songs.zip",
         }
     )
 
