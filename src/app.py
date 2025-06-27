@@ -46,10 +46,10 @@ async def song_dl(id: str, websocket: WebSocket):
 
     url = await websocket.receive_text()
     if not is_valid_spotify_url(url):
-            await websocket.send_text("Invalid URL!! Try again ^_____^")
-            await websocket.close(code=1003, reason="Invalid Spotify URL")
-            return
-    
+        await websocket.send_text("Invalid URL!! Try again ^_____^")
+        await websocket.close(code=1003, reason="Invalid Spotify URL")
+        return
+
     process = await asyncio.create_subprocess_exec(
         "spotdl",
         url,
@@ -95,7 +95,7 @@ async def song_dl(id: str, websocket: WebSocket):
 
     await websocket.send_json(
         {
-            "message": "Download successful via spotGrab! Download window should now open!",
+            "message": "Download successful via spotGrab! \n Download window should now open!",
             "url": f"/public_downloads/{id}/songs.zip",
         }
     )
