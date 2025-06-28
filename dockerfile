@@ -1,7 +1,5 @@
-# Use a slim and recent Python image
 FROM python:3.11-alpine
 
-# Set build arguments for multi-arch
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 RUN echo "Building on $BUILDPLATFORM, targeting $TARGETPLATFORM"
