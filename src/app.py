@@ -8,8 +8,9 @@ app = FastAPI(title="spotGrab")
 load_dotenv()
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
-cleanupInterval = int(os.getenv("FILE_CLEANUP_INTERVAL"))
-cleanupMaxAge = int(os.getenv("FILE_CLEANUP_MAX_AGE"))
+cleanupInterval = int(os.getenv("FILE_CLEANUP_INTERVAL", "1800"))
+cleanupMaxAge = int(os.getenv("FILE_CLEANUP_MAX_AGE", "3600"))
+bitrate = os.getenv("BITRATE", "192k")
 
 
 def is_valid_spotify_url(url: str) -> bool:
@@ -59,6 +60,8 @@ async def song_dl(id: str, websocket: WebSocket):
         client_secret,
         "--output",
         f"../music/{id}",
+        "--bitrate",
+        bitrate,
         stdout=asyncio.subprocess.PIPE,
     )
 

@@ -19,6 +19,7 @@ services:
       - CLIENT_SECRET=your_spotify_client_secret
       - FILE_CLEANUP_INTERVAL=1800
       - FILE_CLEANUP_MAX_AGE=3600
+      - BITRATE=192k
     restart: unless-stopped
     labels:
       icon: https://cdn.jsdelivr.net/gh/thepangel/spotgrab/src/logo.svg
