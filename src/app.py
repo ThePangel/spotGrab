@@ -14,9 +14,8 @@ bitrate = os.getenv("BITRATE", "192k")
 
 
 def is_valid_spotify_url(url: str) -> bool:
-
     spotify_patterns = [
-        r"^https://open\.spotify\.com/(track|album|playlist|artist)/.+",
+        r"^https://open\.spotify\.com/(intl-[a-z]{2}/)?(track|album|playlist|artist)/.+",
         r"^spotify:(track|album|playlist|artist):.+",
         r"^https://spotify\.link/.+",
     ]
@@ -26,6 +25,9 @@ def is_valid_spotify_url(url: str) -> bool:
             return True
     return False
 
+def fixed_url(url: str) -> str:
+    url = re.sub('(intl-[a-z]{2}/)?', '', url)
+    return url
 
 async def download_cleanup():
     while True:
@@ -53,7 +55,7 @@ async def song_dl(id: str, websocket: WebSocket):
 
     process = await asyncio.create_subprocess_exec(
         "rustifydl",
-        url,
+        fixed_url(url),
         "--client-id",
         client_id,
         "--client-secret",
