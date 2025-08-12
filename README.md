@@ -65,6 +65,7 @@ spotGrab includes CasaOS-compatible configuration. Simply use the included `dock
 
 ## Environment Variables
 - `CLIENT_ID` and `CLIENT_SECRET`: Your Spotify API credentials
+- `BITRATE`: Audio bitrate for downloads (default: 192k). Common options: 96k, 128k, 192k, 256k, 320k
 - `FILE_CLEANUP_INTERVAL`: Interval (in seconds) between cleanup runs (default: 1800)
 - `FILE_CLEANUP_MAX_AGE`: Max age (in seconds) before a download folder is deleted (default: 3600)
 
@@ -85,6 +86,6 @@ MIT License — see [LICENSE](LICENSE)
 ---
 
 <div align="center">
-  <p>spotGrab is built with 💖 and with <a href="https://github.com/spotDL/spotify-downloader">spotDL</a>, FastAPI, and Docker.</p>
+  <p>spotGrab is built with 💖 and with <a href="https://github.com/thepangel/rustifydl">RustifyDL</a>, FastAPI, and Docker.</p>
   <p>by <a href="https://github.com/thepangel">thepangel</a> ^_____^</p>
 </div>

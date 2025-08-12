@@ -52,17 +52,20 @@ async def song_dl(id: str, websocket: WebSocket):
         return
 
     process = await asyncio.create_subprocess_exec(
-        "spotdl",
+        "rustifydl",
         url,
         "--client-id",
         client_id,
         "--client-secret",
         client_secret,
-        "--output",
+        "--output-dir",
         f"../music/{id}",
         "--bitrate",
         bitrate,
+        "-v",
+        "no-bars",
         stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.STDOUT,
     )
 
     async def read_stdout():
