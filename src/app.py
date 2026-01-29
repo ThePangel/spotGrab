@@ -66,6 +66,8 @@ async def song_dl(id: str, websocket: WebSocket):
         bitrate,
         "-v",
         "no-bars",
+        "-y",
+        ".",
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.STDOUT,
     )
